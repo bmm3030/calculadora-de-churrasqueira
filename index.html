@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Churrasco</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Calculadora de Churrasco</h1>
+        <p>Planeje seu churrasco com facilidade!</p>
+
+        <!-- Formulário de entrada -->
+        <form id="churrascoForm">
+            <label for="adultos">Número de adultos:</label>
+            <input type="number" id="adultos" min="0" required>
+
+            <label for="criancas">Número de crianças:</label>
+            <input type="number" id="criancas" min="0" required>
+
+            <label for="bebedores">Quantos adultos vão beber álcool?</label>
+            <input type="number" id="bebedores" min="0" required>
+
+            <button type="submit">Calcular</button>
+        </form>
+
+        <!-- Área de resultados -->
+        <div id="resultado" class="resultado">
+            <h2>Resultado do seu churrasco:</h2>
+            <p id="carne"></p>
+            <p id="acompanhamentos"></p>
+            <p id="bebidaNaoAlcoolica"></p>
+            <p id="bebidaAlcoolica"></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
