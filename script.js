@@ -1,5 +1,5 @@
 // script.js
-
+ 
 // Espera o DOM estar completamente carregado para executar o script
 document.addEventListener('DOMContentLoaded', () => {
 
