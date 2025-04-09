@@ -3,28 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Churrasco</title>
+    <title>Calculadora de Churrasco - Estime Quantidades Fácil</title> <meta name="description" content="Calcule facilmente a quantidade de carne, acompanhamentos e bebidas para seu churrasco! Informe o número de adultos e crianças e obtenha sua lista de compras.">
 
-    <meta name="google-site-verification" content="YOUR_VERIFICATION_CODE" />
 
     <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
     <script src="https://cdn.jsdelivr.net/npm/lucide-static@latest"></script>
 
     <style>
-        /* Estilos personalizados adicionais (se necessário) */
         body {
-            font-family: 'Inter', sans-serif; /* Fonte padrão sugerida */
-            background-color: #fdf2e9; /* Fundo levemente alaranjado/bege */
+            font-family: 'Inter', sans-serif;
+            background-color: #fdf2e9;
         }
-        /* Cores temáticas de churrasco */
-        .bg-bbq-primary { background-color: #c0392b; } /* Vermelho escuro */
+        .bg-bbq-primary { background-color: #c0392b; }
         .text-bbq-primary { color: #c0392b; }
-        .bg-bbq-secondary { background-color: #e67e22; } /* Laranja */
+        .bg-bbq-secondary { background-color: #e67e22; }
         .text-bbq-secondary { color: #e67e22; }
-        .border-bbq-accent { border-color: #8c4a2b; } /* Marrom */
-        .bg-bbq-light { background-color: #fdf2e9; } /* Bege claro */
-
-        /* Animação suave para a exibição dos resultados */
+        .border-bbq-accent { border-color: #8c4a2b; }
+        .bg-bbq-light { background-color: #fdf2e9; }
         #results {
             opacity: 0;
             transform: translateY(20px);
@@ -34,12 +29,10 @@
             opacity: 1;
             transform: translateY(0);
         }
-
-        /* Estilo para mensagens de erro */
         .error-message {
-            color: #c0392b; /* Vermelho */
-            font-size: 0.875rem; /* 14px */
-            margin-top: 0.25rem; /* 4px */
+            color: #c0392b;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
         }
     </style>
 
@@ -47,7 +40,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
 
-<!-- Google tag (gtag.js) -->
+  <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-RGTEVBRJQE"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -56,13 +49,36 @@
 
   gtag('config', 'G-RGTEVBRJQE');
 </script>
-    </head>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Calculadora de Churrasco",
+      "description": "Ferramenta online para calcular a quantidade estimada de carne, acompanhamentos e bebidas para um churrasco, baseado no número de convidados.",
+      "applicationCategory": "Utilities",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires JavaScript. Tested on modern browsers.",
+      "url": "URL_DA_SUA_PAGINA_AQUI", // SEO: Substitua pela URL real da sua página quando hospedada
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "BRL"
+      },
+      "creator": {
+         "@type": "Organization", // Ou "Person" se for um projeto pessoal
+         "name": "Nome_Da_Sua_Organizacao_Ou_Seu_Nome" // SEO: Substitua pelo seu nome ou da organização
+       }
+    }
+    </script>
+
+</head>
 <body class="bg-bbq-light flex flex-col items-center justify-center min-h-screen p-4">
 
     <div class="w-full max-w-lg bg-white rounded-xl shadow-2xl overflow-hidden">
         <div class="bg-bbq-primary text-white p-6 text-center">
             <h1 class="text-3xl font-bold mb-2">Calculadora de Churrasco</h1>
-            <p class="text-orange-100">Planeje seu churrasco com facilidade!</p>
+            <p class="text-orange-100">Planeje seu churrasco perfeito! Use nossa calculadora para estimar a quantidade ideal de carne, acompanhamentos e bebidas e evite desperdícios.</p>
         </div>
 
         <form id="bbq-form" class="p-6 md:p-8 space-y-6">
@@ -107,7 +123,8 @@
         </form>
 
         <div id="results-container" class="p-6 md:p-8 border-t border-gray-200">
-             <h2 class="text-xl font-semibold text-bbq-primary mb-4 text-center">Estimativa para o seu Churrasco:</h2>
+             <h2 class="text-xl font-semibold text-bbq-primary mb-2 text-center">Estimativa para o seu Churrasco:</h2>
+             <p class="text-sm text-gray-600 text-center mb-4">Veja abaixo as quantidades sugeridas com base no número de convidados informados.</p>
              <div id="results" class="bg-gray-50 p-6 rounded-lg shadow-inner space-y-3 hidden">
                 </div>
              <div id="general-error" class="error-message text-center mt-4 hidden"></div>
@@ -128,7 +145,7 @@
         const generalError = document.getElementById('general-error');
 
         // Constantes para cálculo (em gramas e mililitros)
-        const MEAT_PER_ADULT = 400; // g
+        const MEAT_PER_ADULT = 500; // g
         const MEAT_PER_CHILD = 200; // g
         const SIDES_PER_ADULT = 150; // g
         const SIDES_PER_CHILD = 100; // g
@@ -137,138 +154,60 @@
 
         // Função para limpar mensagens de erro
         function clearErrors() {
-            adultsError.textContent = '';
-            adultsError.classList.add('hidden');
-            childrenError.textContent = '';
-            childrenError.classList.add('hidden');
-            drinkingAdultsError.textContent = '';
-            drinkingAdultsError.classList.add('hidden');
-            generalError.textContent = '';
-            generalError.classList.add('hidden');
-            resultsDiv.classList.add('hidden'); // Esconde resultados anteriores
-            resultsDiv.classList.remove('visible');
+            adultsError.textContent = ''; adultsError.classList.add('hidden');
+            childrenError.textContent = ''; childrenError.classList.add('hidden');
+            drinkingAdultsError.textContent = ''; drinkingAdultsError.classList.add('hidden');
+            generalError.textContent = ''; generalError.classList.add('hidden');
+            resultsDiv.classList.add('hidden'); resultsDiv.classList.remove('visible');
         }
 
         // Função para exibir mensagem de erro específica
         function showError(element, message) {
-            element.textContent = message;
-            element.classList.remove('hidden');
+            element.textContent = message; element.classList.remove('hidden');
         }
 
         // Adiciona o listener para o evento de submit do formulário
         form.addEventListener('submit', function(event) {
-            event.preventDefault(); // Impede o envio padrão do formulário
-            clearErrors(); // Limpa erros anteriores
+            event.preventDefault(); clearErrors();
 
-            // Obtém os valores dos inputs e converte para número
-            const adults = parseInt(adultsInput.value || '0'); // Trata campo vazio como 0 para cálculo inicial
+            const adults = parseInt(adultsInput.value || '0');
             const children = parseInt(childrenInput.value || '0');
             const drinkingAdults = parseInt(drinkingAdultsInput.value || '0');
 
-            // --- Validação ---
             let isValid = true;
+            if (adultsInput.value.trim() === '' || isNaN(adults) || adults < 0) { showError(adultsError, 'Por favor, insira um número válido de adultos (0 ou mais).'); isValid = false; }
+            if (childrenInput.value.trim() === '' || isNaN(children) || children < 0) { showError(childrenError, 'Por favor, insira um número válido de crianças (0 ou mais).'); isValid = false; }
+            if (drinkingAdultsInput.value.trim() === '' || isNaN(drinkingAdults) || drinkingAdults < 0) { showError(drinkingAdultsError, 'Por favor, insira um número válido de adultos que bebem (0 ou mais).'); isValid = false; }
+            if (isValid && drinkingAdults > adults) { showError(drinkingAdultsError, 'O número de adultos que bebem não pode ser maior que o total de adultos.'); isValid = false; }
+            if (isValid && adults <= 0 && children <= 0) { showError(generalError, 'É necessário ter pelo menos 1 adulto ou 1 criança para calcular.'); isValid = false; }
 
-            // Valida se os campos estão preenchidos e são números não negativos
-            if (adultsInput.value.trim() === '' || isNaN(adults) || adults < 0) {
-                showError(adultsError, 'Por favor, insira um número válido de adultos (0 ou mais).');
-                isValid = false;
-            }
+            if (!isValid) { resultsDiv.innerHTML = ''; resultsDiv.classList.add('hidden'); resultsDiv.classList.remove('visible'); return; }
 
-            if (childrenInput.value.trim() === '' || isNaN(children) || children < 0) {
-                showError(childrenError, 'Por favor, insira um número válido de crianças (0 ou mais).');
-                isValid = false;
-            }
-
-            if (drinkingAdultsInput.value.trim() === '' || isNaN(drinkingAdults) || drinkingAdults < 0) {
-                showError(drinkingAdultsError, 'Por favor, insira um número válido de adultos que bebem (0 ou mais).');
-                isValid = false;
-            }
-
-            // Verifica se o número de adultos que bebem não é maior que o total de adultos (apenas se ambos forem válidos)
-            if (isValid && drinkingAdults > adults) {
-                 showError(drinkingAdultsError, 'O número de adultos que bebem não pode ser maior que o total de adultos.');
-                 isValid = false;
-            }
-
-            // Verifica se pelo menos um adulto ou criança foi inserido (apenas se os números forem válidos)
-            if (isValid && adults <= 0 && children <= 0) {
-                showError(generalError, 'É necessário ter pelo menos 1 adulto ou 1 criança para calcular.');
-                isValid = false;
-            }
-
-            // Se a validação falhou, interrompe
-            if (!isValid) {
-                resultsDiv.innerHTML = ''; // Limpa resultados se houver erro
-                resultsDiv.classList.add('hidden');
-                resultsDiv.classList.remove('visible');
-                return;
-            }
-
-            // --- Cálculos ---
             const totalPeople = adults + children;
-
-            // Carne (em gramas)
             const totalMeatGrams = (adults * MEAT_PER_ADULT) + (children * MEAT_PER_CHILD);
-            const totalMeatKg = (totalMeatGrams / 1000).toFixed(2); // Converte para kg com 2 casas decimais
-
-            // Acompanhamentos (em gramas)
+            const totalMeatKg = (totalMeatGrams / 1000).toFixed(2);
             const totalSidesGrams = (adults * SIDES_PER_ADULT) + (children * SIDES_PER_CHILD);
-            const totalSidesKg = (totalSidesGrams / 1000).toFixed(2); // Converte para kg
-
-            // Bebidas não alcoólicas (em ml)
+            const totalSidesKg = (totalSidesGrams / 1000).toFixed(2);
             const totalNonAlcoholicMl = totalPeople * NON_ALCOHOLIC_DRINKS_PER_PERSON;
-            const totalNonAlcoholicLiters = (totalNonAlcoholicMl / 1000).toFixed(2); // Converte para litros
-
-            // Bebidas alcoólicas (em ml)
+            const totalNonAlcoholicLiters = (totalNonAlcoholicMl / 1000).toFixed(2);
             const totalAlcoholicMl = drinkingAdults * ALCOHOLIC_DRINKS_PER_DRINKING_ADULT;
-            const totalAlcoholicLiters = (totalAlcoholicMl / 1000).toFixed(2); // Converte para litros
+            const totalAlcoholicLiters = (totalAlcoholicMl / 1000).toFixed(2);
 
-            // --- Exibição dos Resultados ---
             resultsDiv.innerHTML = `
-                <p class="flex justify-between items-center">
-                    <span class="font-medium text-gray-700">
-                        <img src="https://cdn.jsdelivr.net/npm/lucide-static@latest/icons/beef.svg" alt="Ícone Carne" class="inline-block w-4 h-4 mr-1 align-text-bottom"/>
-                        Carne:
-                    </span>
-                    <span class="text-lg font-semibold text-bbq-secondary">${totalMeatKg} kg</span>
-                </p>
-                <p class="flex justify-between items-center">
-                    <span class="font-medium text-gray-700">
-                        <img src="https://cdn.jsdelivr.net/npm/lucide-static@latest/icons/salad.svg" alt="Ícone Acompanhamentos" class="inline-block w-4 h-4 mr-1 align-text-bottom"/>
-                        Acompanhamentos:
-                    </span>
-                    <span class="text-lg font-semibold text-bbq-secondary">${totalSidesKg} kg</span>
-                </p>
-                <p class="flex justify-between items-center">
-                    <span class="font-medium text-gray-700">
-                        <img src="https://cdn.jsdelivr.net/npm/lucide-static@latest/icons/cup-soda.svg" alt="Ícone Refrigerante" class="inline-block w-4 h-4 mr-1 align-text-bottom"/>
-                        Bebidas não alcoólicas:
-                    </span>
-                    <span class="text-lg font-semibold text-bbq-secondary">${totalNonAlcoholicLiters} L</span>
-                </p>
-                ${drinkingAdults > 0 ? `
-                <p class="flex justify-between items-center">
-                    <span class="font-medium text-gray-700">
-                        <img src="https://cdn.jsdelivr.net/npm/lucide-static@latest/icons/beer.svg" alt="Ícone Cerveja" class="inline-block w-4 h-4 mr-1 align-text-bottom"/>
-                        Bebidas alcoólicas:
-                    </span>
-                    <span class="text-lg font-semibold text-bbq-secondary">${totalAlcoholicLiters} L</span>
-                </p>
-                ` : ''}
+                <p class="flex justify-between items-center"><span class="font-medium text-gray-700"><img src="https://cdn.jsdelivr.net/npm/lucide-static@latest/icons/beef.svg" alt="Ícone Carne" class="inline-block w-4 h-4 mr-1 align-text-bottom"/> Carne:</span><span class="text-lg font-semibold text-bbq-secondary">${totalMeatKg} kg</span></p>
+                <p class="flex justify-between items-center"><span class="font-medium text-gray-700"><img src="https://cdn.jsdelivr.net/npm/lucide-static@latest/icons/salad.svg" alt="Ícone Acompanhamentos" class="inline-block w-4 h-4 mr-1 align-text-bottom"/> Acompanhamentos:</span><span class="text-lg font-semibold text-bbq-secondary">${totalSidesKg} kg</span></p>
+                <p class="flex justify-between items-center"><span class="font-medium text-gray-700"><img src="https://cdn.jsdelivr.net/npm/lucide-static@latest/icons/cup-soda.svg" alt="Ícone Refrigerante" class="inline-block w-4 h-4 mr-1 align-text-bottom"/> Bebidas não alcoólicas:</span><span class="text-lg font-semibold text-bbq-secondary">${totalNonAlcoholicLiters} L</span></p>
+                ${drinkingAdults > 0 ? `<p class="flex justify-between items-center"><span class="font-medium text-gray-700"><img src="https://cdn.jsdelivr.net/npm/lucide-static@latest/icons/beer.svg" alt="Ícone Cerveja" class="inline-block w-4 h-4 mr-1 align-text-bottom"/> Bebidas alcoólicas:</span><span class="text-lg font-semibold text-bbq-secondary">${totalAlcoholicLiters} L</span></p>` : ''}
                  <p class="text-xs text-gray-500 pt-3 text-center">*Estimativas baseadas em consumo médio. Ajuste conforme necessário.</p>
             `;
 
-            // Mostra a div de resultados com animação
             resultsDiv.classList.remove('hidden');
-            // Força reflow para reiniciar a animação, se necessário
             void resultsDiv.offsetWidth;
             resultsDiv.classList.add('visible');
-
-            // Rola a página para que os resultados fiquem visíveis (especialmente em mobile)
-             resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
-
     </script>
 
 </body>
 </html>
+
