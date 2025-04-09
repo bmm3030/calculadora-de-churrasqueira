@@ -4,8 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora de Churrasco</title>
+
+    <meta name="google-site-verification" content="YOUR_VERIFICATION_CODE" />
+
     <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
     <script src="https://cdn.jsdelivr.net/npm/lucide-static@latest"></script>
+
     <style>
         /* Estilos personalizados adicionais (se necessário) */
         body {
@@ -38,10 +42,21 @@
             margin-top: 0.25rem; /* 4px */
         }
     </style>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
-</head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RGTEVBRJQE"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RGTEVBRJQE');
+</script>
+    </head>
 <body class="bg-bbq-light flex flex-col items-center justify-center min-h-screen p-4">
 
     <div class="w-full max-w-lg bg-white rounded-xl shadow-2xl overflow-hidden">
@@ -146,45 +161,47 @@
             clearErrors(); // Limpa erros anteriores
 
             // Obtém os valores dos inputs e converte para número
-            const adults = parseInt(adultsInput.value);
-            const children = parseInt(childrenInput.value);
-            const drinkingAdults = parseInt(drinkingAdultsInput.value);
+            const adults = parseInt(adultsInput.value || '0'); // Trata campo vazio como 0 para cálculo inicial
+            const children = parseInt(childrenInput.value || '0');
+            const drinkingAdults = parseInt(drinkingAdultsInput.value || '0');
 
             // --- Validação ---
             let isValid = true;
 
-            if (isNaN(adults) || adults < 0) {
+            // Valida se os campos estão preenchidos e são números não negativos
+            if (adultsInput.value.trim() === '' || isNaN(adults) || adults < 0) {
                 showError(adultsError, 'Por favor, insira um número válido de adultos (0 ou mais).');
                 isValid = false;
             }
 
-            if (isNaN(children) || children < 0) {
+            if (childrenInput.value.trim() === '' || isNaN(children) || children < 0) {
                 showError(childrenError, 'Por favor, insira um número válido de crianças (0 ou mais).');
                 isValid = false;
             }
 
-            if (isNaN(drinkingAdults) || drinkingAdults < 0) {
+            if (drinkingAdultsInput.value.trim() === '' || isNaN(drinkingAdults) || drinkingAdults < 0) {
                 showError(drinkingAdultsError, 'Por favor, insira um número válido de adultos que bebem (0 ou mais).');
                 isValid = false;
             }
 
-            // Verifica se o número de adultos que bebem não é maior que o total de adultos
-            if (!isNaN(adults) && !isNaN(drinkingAdults) && drinkingAdults > adults) {
+            // Verifica se o número de adultos que bebem não é maior que o total de adultos (apenas se ambos forem válidos)
+            if (isValid && drinkingAdults > adults) {
                  showError(drinkingAdultsError, 'O número de adultos que bebem não pode ser maior que o total de adultos.');
                  isValid = false;
             }
 
-            // Verifica se pelo menos um campo foi preenchido com valor maior que zero
-            if (!isNaN(adults) && !isNaN(children) && adults <= 0 && children <= 0) {
+            // Verifica se pelo menos um adulto ou criança foi inserido (apenas se os números forem válidos)
+            if (isValid && adults <= 0 && children <= 0) {
                 showError(generalError, 'É necessário ter pelo menos 1 adulto ou 1 criança para calcular.');
                 isValid = false;
             }
 
+            // Se a validação falhou, interrompe
             if (!isValid) {
                 resultsDiv.innerHTML = ''; // Limpa resultados se houver erro
                 resultsDiv.classList.add('hidden');
                 resultsDiv.classList.remove('visible');
-                return; // Interrompe a execução se a validação falhar
+                return;
             }
 
             // --- Cálculos ---
@@ -251,12 +268,7 @@
              resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
 
-        // Inicializa os ícones Lucide (se necessário, dependendo da versão/uso)
-        // lucide.createIcons(); // Geralmente não necessário com a versão estática via script src
     </script>
-
-</body>
-</html>
 
 </body>
 </html>
